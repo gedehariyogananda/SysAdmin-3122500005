@@ -33,6 +33,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 2023/2024
 </h3> 
 
+<h1>Tugas 1. Struktur Folder</h1>
 
 Struktur direktori pada Unix & Linux adalah struktur direktori yang terpadu di bawah sistem file Root “/”. Terlepas dari di mana Sistem File secara fisik dipasang, semua direktori diatur secara hierarkis di bawah sistem file Root.
 
@@ -125,47 +126,46 @@ Sistem file sementara yang menyimpan file sementara yang dibersihkan saat sistem
 </p>
 
 
+<h1>Tugas 2. PPT Rangkuman Basic Sistem Administasi Jaringan</h1>
+<link> https://www.canva.com/design/DAF-LbQcD9s/3PQI703JvkqvEKSjdG73pQ/edit</link>
 
-<h1>Berikut Tutorial Setting Network</h1>
+<h1>Tugas 3. Berikut Tutorial Setting Network</h1>
 
-<p> setting network ip addres</p>
+<p> * setting network ip addres</p>
 
 <p align="center">
     <img src="img/tugas2-1.png" alt="Cover Image" width="480" height="420">
 </p>
 
-<p> buka wired setting </p>
+<p> 1. buka wired setting </p>
 
 <p align="center">
     <img src="img/tugas2-2.png" alt="Cover Image" width="480" height="420">
 </p>
 
-<p> pilih pengaturan lalu ipv4 dan pilih manual </p>
+<p> 2. pilih pengaturan lalu ipv4 dan pilih manual </p>
 
 <p align="center">
     <img src="img/tugas2-3.png" alt="Cover Image" width="480" height="420">
 </p>
 
-<p> setting addresses nya, lalu apply </p>
+<p> 3. setting addresses nya, lalu apply </p>
 
 <p align="center">
     <img src="img/tugas2-4.png" alt="Cover Image" width="480" height="420">
 </p>
 
-<p> cek ip address lagi apakah pastikan sudah berubah (setting berhasil)</p>
+<p> 4. cek ip address lagi apakah pastikan sudah berubah (setting berhasil)</p>
 
 <p align="center">
     <img src="img/tugas2-5.png" alt="Cover Image" width="480" height="420">
 </p>
 
-<p>selanjutnya refresh wifi dan cek apakah bisa tetap tersambung atau tidak</p>
+<p> 5. selanjutnya refresh wifi dan cek apakah bisa tetap tersambung atau tidak</p>
 
 <p align="center">
     <img src="img/tugas2-6.png" alt="Cover Image" width="480" height="420">
 </p>
 
-ternyata tidak connect ke internet 
+RESULT ----> ternyata tidak connect ke internet 
 
-
-<p> link PPT:</p>
-<link> https://www.canva.com/design/DAF-LbQcD9s/3PQI703JvkqvEKSjdG73pQ/edit</link>
