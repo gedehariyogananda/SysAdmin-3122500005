@@ -1,4 +1,4 @@
-# DAFTAR TUGAS AKAN SAYA TAMPILKAN PADA BAGIAN INI
+# LINK TUGAS WORKSHOP ADMINISTRASI JARINGAN
 | TUGAS | FILE |
 | ------| -----|
 | [TUGAS 1](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas1.md) |  _[FILE](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas1.md)_ |
