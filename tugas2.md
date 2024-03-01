@@ -128,6 +128,9 @@ Sistem file sementara yang menyimpan file sementara yang dibersihkan saat sistem
 
 <h1>Tugas 2. PPT Rangkuman Basic Sistem Administasi Jaringan</h1>
 <link> https://www.canva.com/design/DAF-LbQcD9s/3PQI703JvkqvEKSjdG73pQ/edit</link>
+<p>Berikut File PPT nya: </p>
+<link> https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/Tugas%202/PPT%20Basic%20Administrasi%20Jaringan</link>
+
 
 <h1>Tugas 3. Berikut Tutorial Setting Network</h1>
 
