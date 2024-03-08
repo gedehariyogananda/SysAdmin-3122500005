@@ -4,8 +4,9 @@ Pak Ferry Astika Saputra ST, M.Sc ([@ferryastika](https://github.com/ferryastika
 ## LINK TUGAS WORKSHOP ADMINISTRASI JARINGAN
 | TUGAS | FILE |
 | ------| -----|
-| TUGAS 1 |  _[FILE](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas1.md)_ |
-| TUGAS 2 |  _[FILE](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas2.md)_ |
+| TUGAS 1 |  _[file tugas 1](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas1.md)_ |
+| TUGAS 2 |  _[fike tugas 2](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas2.md)_ |
+| TUGAS 3 |  _[fike tugas 3](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas3.md)_ |
 
 ## Identitas Pribadi Saya
 
