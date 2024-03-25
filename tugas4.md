@@ -111,3 +111,94 @@ cara kerja untuk tahapan DNS :
 8.  Respon ke Komputer Klien: Akhirnya, server DNS lokal memberikan respons kepada komputer klien yang awalnya membuat permintaan. Komputer klien menerima informasi yang diperlukan untuk mengakses situs web detik.com. Dengan demikian, proses DNS iteratif dan rekursif telah selesai, dan komputer klien dapat mengakses situs web yang diminta.
 
 ##
+
+# INSTALASI DNS SERVER
+
+Saya menggunakan dokumentasi berikut sebagai refensi:
+[Klik Disini](https://wiki.debian.org/Bind9#Debian_Bookworm)
+
+Pertama-tama install bind 9 seperti berikut:
+
+![langkah 1](img/tugas3-41.png)
+
+
+Lalu masuk ke named.conf dengan command "sudo nano named.conf" sesuaikan berdasarkan konfigurasi dokumentasi dengan beberapa penyesuaian:
+
+![Langkah 2](img/tugas3-42.png)
+
+
+Lalu masuk ke named.conf.default-zones dengan command "sudo nano named.conf" sesuaikan berdasarkan konfigurasi dokumentasi dengan beberapa penyesuaian:
+
+![Langkah 3](img/tugas3-43.png)
+
+
+Lalu masuk ke named.conf.options dengan command "sudo nano named.conf.options" sesuaikan berdasarkan konfigurasi dokumentasi dengan beberapa penyesuaian:
+
+![Langkah 4](img/tugas3-44.png)
+
+
+Lalu masuk ke named.conf.options dengan command "sudo nano named.conf.options" sesuaikan berdasarkan konfigurasi dokumentasi dengan beberapa penyesuaian:
+
+![Langkah 5](img/tugas3-45.png)
+
+
+Pindah direktori ke /var/lib/bind/
+
+![Langkah 6](img/tugas3-46.png)
+
+
+Ketikan command "sudo nano db.kelompok4.local" dan sesuaikan konfigurasinya dengan dokumnetasi dengan sedikit improvisasi:
+
+![Langkah 7](img/tugas3-47.png)
+
+
+Dan juga ketikan "sudo nano db.kelompok4.local.inv" dan sesuiakan konfigurasinya dengan nama kelompok:
+
+![alt](img/tugas3-48.png)
+
+
+Ketikan perintah "sudo named-checkzone kelompok4.local db.kelompok4.local" jika berhasil maka akan muncul seperti dibawah ini:
+
+![alt](img/tugas3-49.png)
+
+
+Ketikan perintah "sudo named-checkzone 4.168.192.in-addr.arpa db.kelompok4.local.inv" jika berhasil maka akan muncul status OK seperti dibawah ini:
+
+![alt](img/tugas3-50.png)
+
+
+Pastikan pada wired connection anda manual dengan settingan ip dan dns seperti dibawah:
+
+![alt](img/tugas3-52.png)
+
+
+lalu cek status named dengan cara "sudo systemctl status named" pastikan running dan tidak ada masalah
+
+![alt](img/tugas3-51.png)
+
+
+Jika error atau ada masalah dengan named cara "sudo systemctl restart named" lalu jalankan "sudo systemctl status named" pastikan running dan tidak ada masalah
+
+![alt](img/tugas3-53.png)
+
+
+Jalankan "sudo systemctl status networking" untuk memeriksa apakah jaringan berjalan tidak ada masalah
+
+![alt](img/tugas3-54.png)
+
+
+Cek "sudo nano /etc/resolv.conf" dan konfigurasi seperti dibawah:
+
+![alt](img/tugas3-55.png)
+
+
+Tes menggunakan "nslookup 192.168.4.1" dan "nslookup ns.kelompok4.local" untuk melihat apakah IP sudah sesuai dengan nama kelompoknya:
+
+![alt](img/tugas3-56.png)
+![alt](img/tugas3-57.png)
+
+
+Terakhir lakukan pengetesan dengan cara "dig ns.kelompok4.local" dan "dig -x 192.168.4.1"
+
+![alt](img/tugas3-58.png)
+![alt](img/tugas3-59.png)
