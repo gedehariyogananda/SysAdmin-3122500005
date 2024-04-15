@@ -32,7 +32,6 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 
 <hr>
 
----
 # WEB EMAIL SYSTEM
 
 ## NTP Client
@@ -350,7 +349,7 @@ Berhasil terhubung, yang mana artinya database sudah bekerja dengan benar.
 
 4. Testing kirim email dari user pertama ke user kedua
     ![alt text](<img/62.png>)
-    pesan berhasil terkirim ke user azizah@mail.kelompok10.local <br>
+    pesan berhasil terkirim ke user ary@mail.kelompok4.local <br>
     ![alt text](<img/63.png>)
 
 5. Testing kirim email dari user kedua ke user pertama
@@ -420,7 +419,7 @@ Berhasil terhubung, yang mana artinya database sudah bekerja dengan benar.
     >klik ya untuk restart <br>
     ![alt text](<img/82.png>)
 
-7. Lakukan pengecekan roundcube dengan mengetikkan www.kelompok10.local/
+7. Lakukan pengecekan roundcube dengan mengetikkan www.kelompok4.local/
     ![alt text](<img/84.png>)
     Roundcube sudah berhasil terinstall
 
@@ -433,6 +432,6 @@ Berhasil terhubung, yang mana artinya database sudah bekerja dengan benar.
     >berhasil terkirim ke user tujuan <br>
     ![alt text](<img/87.png>)
 
-10. Lakukan pengecekan pesan masuk pada user kedua azizah@mail.kelompok10.local
+10. Lakukan pengecekan pesan masuk pada user kedua ary@mail.kelompok4.local
     ![alt text](<img/88.png>)
     Pesan berhasil masuk dan diterima oleh user kedua. Roundcube berhasil berjalan dengan baik.
