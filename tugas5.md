@@ -69,7 +69,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 
     ``sudo timedatectl``
    <p align="">
-        <img src="img/tugas5/6.4(last).png" alt="Cover Image">
+        <img src="img/tugas5/6.4 (last).png" alt="Cover Image">
     </p>
 
 
