@@ -8,6 +8,8 @@ Pak Ferry Astika Saputra ST, M.Sc ([@ferryastika](https://github.com/ferryastika
 | TUGAS 2 |  _[file tugas 2](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas2.md)_ |
 | TUGAS 3 |  _[file tugas 3](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas3.md)_ |
 | TUGAS 4 |  _[file tugas 4](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas4.md)_ |
+| TUGAS 5 |  _[file tugas 5](https://github.com/gedehariyogananda/SysAdmin-3122500005/blob/main/tugas5.md)_ |
+
 
 
 ## Identitas Pribadi Saya
