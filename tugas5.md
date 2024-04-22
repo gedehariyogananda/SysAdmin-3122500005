@@ -424,6 +424,9 @@ FLUSH PRIVILEGES;`` <br>
 ### Melakukan Cek terhadap Layanan Posfix
 `` telnet mail.kelompok4.local 25
 `` 
+   <p align="">
+        <img src="img/tugas5/telnet.png" alt="Cover Image">
+    </p> <br>
 <br>
 
 ## Test Email Menggunakan Thunderbird
@@ -549,3 +552,6 @@ FLUSH PRIVILEGES;`` <br>
     </p> <br>
 
     *berhasil terkirim ke user tujuan <br>
+        <p align="">
+        <img src="img/tugas5/akhir.png" alt="Cover Image">
+    </p> <br>
