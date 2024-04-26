@@ -148,7 +148,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 
     `` a2enconf php8.2-fpm`` <br>
      <p align="">
-        <img src="img/tugas5/6.14.png" alt="Cover Image">
+        <img src="img/tugas5/8.14.png" alt="Cover Image">
     </p>
 
     ``systemctl restart php8.2-fpm apache2`` <br>
@@ -158,7 +158,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 
     ``echo '<?php phpinfo(); ?>' > /var/www/html/info.php`` <br>
      <p align="">
-        <img src="img/tugas5/6.15.png" alt="Cover Image">
+        <img src="img/tugas5/7.15.png" alt="Cover Image">
     </p>
 
 4. Lakukan pemgecekan di broser apakah sudah tersambung
@@ -216,7 +216,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
    ``sudo apt -y install phpmyadmin``
    pilih apache untuk webserver
     <p align="">
-        <img src="img/tugas5/6.23.png" alt="Cover Image">
+        <img src="img/tugas5/php 6.23.png" alt="Cover Image">
     </p> <br>
 
 2. Tunggu proses instalasi <br>
@@ -273,18 +273,18 @@ FLUSH PRIVILEGES;`` <br>
 2. copy main.cf.dist ke posfix
    ``cp /usr/share/postfix/main.cf.dist /etc/postfix/main.cf`` <br>
      <p align="">
-        <img src="img/tugas5/6.34" alt="Cover Image">
+        <img src="img/tugas5/6.34.png" alt="Cover Image">
     </p>
 
     ``nano /etc/posfix/main.cf``
     - #line 82 : uncomment <br> mail_owner = postfix <br>
     <p align="">
-        <img src="img/tugas5/6.35" alt="Cover Image">
+        <img src="img/tugas5/6.35.png" alt="Cover Image">
     </p>
     
     - #line 98 : uncomment and specify hostname <br> myhostname = mail.kelompok4.local dan mydomain = kelompok4.local<br>
      <p align="">
-        <img src="img/tugas5/6.36" alt="Cover Image">
+        <img src="img/tugas5/6.36.png" alt="Cover Image">
     </p>
     
     - #line 127 : uncomment <br>
@@ -292,13 +292,13 @@ FLUSH PRIVILEGES;`` <br>
     - #line 141 : uncomment <br>
     ``inet_interfaces = all``
      <p align="">
-        <img src="img/tugas5/6.37" alt="Cover Image">
+        <img src="img/tugas5/6.37.png" alt="Cover Image">
     </p>
     
     - #line 189 : uncomment <br>
    `` mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain ``
      <p align="">
-        <img src="img/tugas5/6.38" alt="Cover Image">
+        <img src="img/tugas5/6.38.png" alt="Cover Image">
     </p>
     
     - #line 277 : uncomment <br>
@@ -551,3 +551,72 @@ FLUSH PRIVILEGES;`` <br>
         <p align="">
         <img src="img/tugas5/akhir.png" alt="Cover Image">
     </p> <br>
+
+
+# PRAKTIKUM MENGUNAKAN WEBMAIL DALAM 1 JARINGAN
+
+## SETUP AWAL
+
+Pertama-tama sambungkan komputer dengan kabel ethernet lokal yang tersedia. Setelah tersambung dengan jaringan lokal pastikan IP sesuai dengan kelompok/meja gunakan command `ipconfig/all` pada kasus ini saya mendapatkan IP `192.168.4.1` karena saya merupakan kelompok 4
+
+![awalsetup](/img/Tugas5/awalsetup1.png)
+
+Lalu ubah pada setting network pada virtual machine ke Bridged Adapter dan ganti adapter sesuai dengan hasil command `ipconfig/all` yaitu `Realtek PCIe GbE Family Controller`
+
+![awalsetup](/img/Tugas5/awalsetup2.png)
+
+## SETUP DEBIAN 12
+
+Jalankan VM anda lalu pergi ke `sudo nano /etc/bind/named.conf.options`
+![setup](/img/Tugas5/setup1.png)
+
+Rubah konfigurasi forwarders dengan `10.10.10.1` dan `192.168.4.10` ganti IP listen on ke `192.168.4.10` terakhir ganti konfigurasi `allow-query` dan `allow-recursion `ke `any`. Konfigurasinya akan menjadi seperti berikut:
+
+![setup](/img/Tugas5/setup2.png)
+![setup](/img/Tugas5/setup3.png)
+
+Rubah juga konfigurasi di `sudo nano /etc/resolv.conf` tambahkan `nameserver 192.168.4.10` seperti dibawah berikut:
+
+![setup](/img/Tugas5/setup4.png)
+
+Setelah itu coba tes ping IP kelompok lain yaitu kelompok 2 dengan command `ping 192.168.2.10` jika konfigurasi network benar maka maka hasilnya akan seperti berikut:
+
+![tes](/img/Tugas5/test1.png)
+
+Coba juga tes ping ke sebagai contoh `detik.com` dengan command `ping detik.com` jika konfigurasi network benar maka akan seperti dibawah ini:
+
+![tes](/img/Tugas5/test2.png)
+
+Buka browser dan coba test apakah bisa mengakses webmail (roundcube) kelompok lain disini saya mencoba mengakses ke webmail kelompok 2 dengan alamat `mail.kelompok2.local` Jika berhasil maka akan tampil seperti berikut:
+
+![tes](/img/Tugas5/test3.png)
+
+Buka browser dan coba test apakah bisa mengakses webmail (roundcube) dengan alamat `mail.kelompok4.local/roundcube` Jika berhasil maka akan tampil seperti berikut:
+
+![tes](/img/Tugas5/test4.png)
+
+Jika network static tidak bekerja dan tidak bisa tampil seperti diatas maka coba buka `sudo nano /etc/network/interfaces` buat auto network dengan mengcomment konfigurasi static pada seperti dibawah ini:
+
+![setup](/img/Tugas5/setup5.png)
+
+Lalu setup manual IPv4 dengan IP addres `192.168.4.10` netmask `255.255.255.0` gateway `192.168.4.1` dan DNS `10.10.10.1`
+
+![setup](/img/Tugas5/setup6.png)
+
+
+## KONFIGURASI WINBOX
+
+Buka winbox di windows lalu pergi ke menu bridge. Setelah itu remove bridge yang ada dan buat baru. langsung next next saja hingga bertemu setting DNS inputkan `10.10.10.1`
+
+![winbox](/img/Tugas5/winbox1.png)
+
+
+## HASIL AKHIR
+
+Login ke rouncube dengan user dan password yang sudah disetup. pada kasus ini saya bisa menerima pesan dari user `iqbal@kelompok6.local` seperti pada gambar dibawah ini:
+
+![hasil](/img/Tugas5/hasil1.png)
+![hasil](/img/Tugas5/hasil2.png)
+
+Disini saya ingin mencoba mengirim pesan email ke `user@kelompok2.local` dan berhasil
+![hasil](/img/Tugas5/hasil3.png)
