@@ -443,13 +443,9 @@ FLUSH PRIVILEGES;`` <br>
     </p> <br>
 
 3. Testing kirim email dari user pertama ke user kedua
-    ![alt text](<img/62.png>)
     pesan berhasil terkirim ke user ary@mail.kelompok4.local <br>
-    ![alt text](<img/63.png>)
 
 5. Testing kirim email dari user kedua ke user pertama
-    ![alt text](<img/64.png>)
-    ![alt text](<img/65.png>)
     Berhasil saling mengirim pesan, yang mana artinya email sistem telah berjalan dengan benar.
 
 ## Email Client Menggunakan Web (ROUNDCUBE)
