@@ -647,3 +647,104 @@ Disini saya ingin mencoba mengirim pesan email ke `user@kelompok2.local` dan ber
   <p align="">
         <img src="img/tugas5/hasil3.png" alt="Cover Image">
     </p> <br>
+
+
+
+## TELNET
+
+Pertama tama masuk ke Terminal lalu ketikan command ``telnet 192.168.4.10 25`` atau ``telnet mail.kelompok4.local`` setelah itu masukan command ``ehlo kelompok4.local`` seperti dibawah berikut:
+
+  <p align="">
+        <img src="img/tugas5/telnet1.png" alt="Cover Image">
+    </p> <br>
+
+Ketikan dengan format email:
+
+    MAIL FROM: <alamat email anda>
+    RCPT TO: <tujuan alamat email anda>
+
+Setelah itu tekan enter untuk mendapatkan pesan ``250 2.1.5 Ok``
+Lalu Masukan:
+        
+    DATA
+
+Tekan enter dan masukan isi email dengan format:
+
+    From: <nama pengirim>
+    To: <tujuan pengirim>
+    Date: <Tanggal pengiriman>
+    Subject: <subject pesan>
+
+Setelah menekan enter masukan pesan anda jika selesai tekan ``ctrl+c`` maka pesan terkirim
+      
+  <p align="">
+        <img src="img/tugas5/telnet2.png" alt="Cover Image">
+    </p> <br>
+
+
+## Header MIME Analysis
+
+Analysis Header Text mail Roundcube
+
+  <p align="">
+        <img src="img/tugas5/header_analysis1.png" alt="Cover Image">
+    </p> <br>
+
+1. **Return-Path**: Menunjukkan alamat email tempat bounce atau kegagalan pengiriman akan dikirimkan. Di sini, diatur ke user@mail.kelompok2.local.
+
+2. **X-Original-To**: Menunjukkan penerima asli email sebelum ada proses penerusan atau pemrosesan daftar mailing. Di sini, menunjukkan syahrul@mail.kelompok4.local.
+
+3. **Delivered-To**: Menunjukkan alamat email di mana email akhirnya dikirimkan. Cocok dengan bidang X-Original-To, yaitu syahrul@mail.kelompok4.local.
+
+4. **Received**: Menunjukkan jalur yang ditempuh email untuk mencapai kotak surat penerima. Ada dua header Received dalam gambar ini:
+
+    - Yang pertama menunjukkan bahwa email berasal dari mail.kelompok2.local dengan alamat IP 192.168.88.2. Ini menunjukkan bahwa email dikirim secara internal dalam jaringan lokal.
+    - Yang kedua menunjukkan bahwa email diterima oleh mail.kelompok4.local pada tanggal 29 April 2024, pukul 13.52 WIB.
+
+5. **MIME-Version**: Menentukan versi standar Multipurpose Internet Mail Extensions (MIME) yang digunakan dalam email. Di sini, diatur ke 1.0.
+
+6. **Date**: Menunjukkan tanggal dan waktu email dikirim. Cocok dengan penanda waktu di header Received kedua, yaitu 29 April 2024, pukul 13.52 WIB.
+
+7. **From**: Menunjukkan pengirim email. Menunjukkan "user" <user@mail.kelompok2.local>, yang berarti email dikirim oleh pengguna bernama "user" dengan alamat email user@mail.kelompok2.local.
+
+8. **To**: Menentukan penerima email. Menunjukkan "syahrul" <syahrul@mail.kelompok4.local>, yang menunjukkan bahwa email dikirim kepada seseorang bernama "syahrul" dengan alamat email syahrul@mail.kelompok4.local.
+
+9. **Subject**: Mengandung baris subjek email, yaitu "Re: hendro". Ini menunjukkan bahwa email ini merupakan balasan terhadap email dengan subjek "hendro".
+
+10. **In-Reply-To**: Referensi pesan ID email yang email ini membalasnya. Nilainya adalah <755af16635ec65bc45d036c4463e6017@mail.kelompok4.local>.
+
+11. **References**: Header ini digunakan untuk menentukan email terkait, seperti email sebelumnya dalam sebuah percakapan. Di sini, merujuk pada ID pesan yang sama dengan header In-Reply-To, menunjukkan bahwa email ini merupakan bagian dari percakapan tentang email dengan ID <755af16635ec65bc45d036c4463e6017@mail.kelompok4.local>.
+
+12. **Message-ID**: Unik mengidentifikasi pesan email. Ini adalah <5e1fbf0b82b1f15a1d72fbdedbde1203@mail.kelompok2.local>.
+
+13. **X-Sender**: Header ini tidak merupakan bagian dari format email standar tetapi mungkin digunakan oleh beberapa server email untuk menentukan alamat email pengirim. Di sini, cocok dengan bidang Dari, diatur ke user@mail.kelompok2.local.
+
+14. **Content-Type**: Menentukan format konten email. Di sini, diatur ke text/plain; charset=US-ASCII; format=flowed, menunjukkan bahwa isi email adalah teks biasa yang dienkripsi dalam set karakter US-ASCII dan diformat untuk tampilan teks yang dapat mengalir.
+
+15. **Content-Transfer-Encoding**: Menentukan encoding yang digunakan untuk konten email. Di sini, diatur ke 7bit, menunjukkan bahwa teks dienkripsi menggunakan set karakter 7-bit, yang cocok untuk sebagian besar karakter umum.
+
+Analysis Header Image mail Roundcube
+
+  <p align="">
+        <img src="img/tugas5/header_analysis2.png" alt="Cover Image">
+    </p> <br>
+
+
+1. **Message-ID**: Header ini memberikan pengenal unik untuk email tersebut. ID pesan dari email ini adalah <fe3c089ae91ca1f2ef11d64d15d577ad@mail.kelompok4.local>.
+
+2. **Date**: Header ini menunjukkan tanggal dan waktu email dikirim. Email ini dikirim pada hari Senin, 22 April 2024, pukul 19.00 WIB.
+
+3. **From**: Header ini menunjukkan pengirim email. Bidang Dari menunjukkan "syahrul" dengan alamat email syahrul@mail.kelompok4.local.
+
+4. **To**: Header ini menentukan penerima email. Dalam kasus ini, ada dua penerima:
+
+    - "User1" dengan alamat email user1@mail.kelompok3.local
+    - "Akmal" dengan alamat email akmal@mail.kelompok1.local
+
+5. **Subject**: Header ini berisi baris subjek email, yaitu "test".
+
+6. **User-Agent**: Header ini menentukan perangkat lunak atau klien email yang digunakan untuk mengirim email. Di sini, User-Agent adalah "Server World Webmail".
+
+7. **MIME-Version**: Header ini menentukan versi MIME yang digunakan dalam email. Di sini, digunakan versi MIME 1.0.
+
+8. **Content-Type**: Header ini menentukan format konten email. Jenis konten adalah multipart/alternative; boundary="_6d764f06894e82d98047f7858e7363dd", yang menunjukkan email multipart yang berisi bagian-bagian alternatif. String batas spesifik memisahkan bagian-bagian ini.
