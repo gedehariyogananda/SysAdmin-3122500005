@@ -38,7 +38,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 <h2>Architecture Web Sever & Web Browser</h2>
 
 <p align="center">
-    <img src="/img/client_server.png" alt="Cover Image" width="480" height="420">
+    <img src="/img/client_server.png" >
 </p>
 
 1. **Web Browser:**
@@ -56,7 +56,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 
 <h2>Perbedaan dan Peran Server Aplikasi dan Server Web:</h2>
 <p align="center">
-    <img src="/img/docker.png" alt="Cover Image" width="480" height="420">
+    <img src="/img/docker.jpg">
 </p>
 
 **Server Aplikasi:**
