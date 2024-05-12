@@ -1,6 +1,4 @@
-![image](https://github.com/gedehariyogananda/SysAdmin-3122500005/assets/123063394/78519177-124f-4f72-8e69-5fc63a6b62d4)![image](https://github.com/gedehariyogananda/SysAdmin-3122500005/assets/123063394/e48b2b1f-be13-4f21-ac25-52474e7713e9)﻿<h1 align="center">
-LAPORAN PRAKTIKUM WORKSHOP
-
+**LAPORAN PRAKTIKUM WORKSHOP**
 **ADMINISTRASI JARINGAN**
 
 </h1>
