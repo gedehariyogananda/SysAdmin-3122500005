@@ -1,6 +1,7 @@
-**LAPORAN PRAKTIKUM WORKSHOP**
-**ADMINISTRASI JARINGAN**
+<h1 align="center">
+LAPORAN PRAKTIKUM WORKSHOP
 
+**ADMINISTRASI JARINGAN**
 </h1>
 <p align="center">
 “Architecture Web Server & Web Browser”
