@@ -129,7 +129,7 @@ https://github.com/louislam/uptime-kuma
 
 2. lalu setelah berhasil, coba buka dengan url localhost:3001 port
 <p align="center">
-    <img src="/img/jar8success.png">
+    <img src="/img/jam8success.png">
 </p>
 
 dan kuma berhasil tersintall :)
