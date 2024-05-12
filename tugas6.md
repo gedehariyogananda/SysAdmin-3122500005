@@ -1,4 +1,4 @@
-﻿<h1 align="center">
+![image](https://github.com/gedehariyogananda/SysAdmin-3122500005/assets/123063394/78519177-124f-4f72-8e69-5fc63a6b62d4)![image](https://github.com/gedehariyogananda/SysAdmin-3122500005/assets/123063394/e48b2b1f-be13-4f21-ac25-52474e7713e9)﻿<h1 align="center">
 LAPORAN PRAKTIKUM WORKSHOP
 
 **ADMINISTRASI JARINGAN**
@@ -78,5 +78,61 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
    - Server web menyajikan konten yang sama kepada pengguna tanpa memandang lokasi atau perangkat pengguna, memungkinkan pengguna mengakses halaman web dengan mudah.
 4. **Dukungan untuk Teknologi Adaptif:** 
    - Meskipun server web dapat menyajikan konten statis dengan baik, halaman web dengan komponen adaptif biasanya didukung oleh teknologi lain selain server web.
+  
+
+<h2>Container Docker</h2>
+1. uninstall config docker sebelumnya : 
+<p align="center">
+    <img src="/img/jar1.png">
+</p>
+
+2. ** install docker engine, terdiri dari : **
+   - docker official GPG KEY
+   sudo apt-get install ca-certificates curl
+<p align="center">
+    <img src="/img/jar2.png">
+</p>
+   - lalu add repository to apt sources 
+<p align="center">
+    <img src="/img/jar3.png">
+</p>
+
+
+3. install docker-ce
+<p align="center">
+    <img src="/img/jar4.png">
+</p>
+yes all persetujuan 
+
+4. selesai instalasi, coba docker run hello world
+   karena unnable fine, jadi otomatis akan pull
+<p align="center">
+    <img src="/img/jar5.png">
+</p>
+
+dan berhasil 
+
+5. coba cek container dengan docker ps -a
+<p align="center">
+    <img src="/img/jar6.png">
+</p>
+
+dan ada beberapa tampilan container yang berjalan 
+
+<h2>instalasi uptime-kuma</h2>
+1. instalasi kuma dengan membuka dokumentasi di github nya uptime-kuma dan lakukan instalasi 
+https://github.com/louislam/uptime-kuma
+
+<p align="center">
+    <img src="/img/jar7puma.png">
+</p>
+
+
+2. lalu setelah berhasil, coba buka dengan url localhost:3001 port
+<p align="center">
+    <img src="/img/jar8success.png">
+</p>
+
+dan kuma berhasil tersintall :)
   
 
