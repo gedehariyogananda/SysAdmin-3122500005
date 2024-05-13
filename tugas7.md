@@ -4,7 +4,7 @@ LAPORAN PRAKTIKUM WORKSHOP
 **ADMINISTRASI JARINGAN**
 </h1>
 <p align="center">
-“MAIL SERVER DEBIAN 10, BIND9, POSTFIX, DOVECOT, ThunderBird, RoundCube”
+“PLAYGROUND DOCKER ”
 </p>
 
 <p align="center">
@@ -360,6 +360,7 @@ style="width:6.26772in;height:1.48611in" />
 ## USING DOCKER COMPOSE
 
 setup docker-compose.yml
+<br>
 <img src="img/image43.png"
 style="width:6.26772in;height:2.97222in" />
 
