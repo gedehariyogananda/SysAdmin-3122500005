@@ -34,7 +34,7 @@ POLITEKNIK ELEKTRONIKA NEGERI SURABAYA
 
 # labs play with DOCKER
 
-getting started
+## getting started
 
 <img src="img/image27.png"
 style="width:6.26772in;height:1.47222in" />
@@ -50,14 +50,11 @@ drag file Dockerfile
 style="width:6.26772in;height:0.27778in" />
 
 berisi config :  
+
 FROM node:10-alpine
-
 WORKDIR /app
-
 COPY . .
-
 RUN yarn install --production
-
 CMD \["node", "/app/src/index.js"\]
 
 Build the container image using the docker build command.
@@ -80,7 +77,7 @@ berikut output nya di port 3000
 <img src="img/image50.png"
 style="width:6.26772in;height:3.13889in" />
 
-Update our app
+## UPDATE OUR APP
 
 <img src="img/image5.png"
 style="width:6.26772in;height:2.95833in" />
@@ -106,10 +103,9 @@ lalu build ulang docker :
 style="width:6.26772in;height:1.94444in" />
 
 akan melakukan proses building
-
 note : harus ada titik (.) di belakang nama yang ingin dibuild
 
-mulai start new container
+mulai start new container 
 
 <img src="img/image14.png"
 style="width:6.26772in;height:0.48611in" />
@@ -121,7 +117,6 @@ akan error, karena container tersebut menggunakan port host 3000 dan
 hanya satu proses (termasuk container) yang dapat mendengarkan port
 tersebut. Untuk memperbaikinya, kita perlu menghapus container lama
 
-—
 
 untuk menghapus container lama, kita harus docker stop
 
@@ -136,7 +131,7 @@ style="width:6.26772in;height:0.98611in" />
 <img src="img/image36.png"
 style="width:5.30208in;height:0.53125in" />
 
-**bisa remove sekalian dari docker container dengan docker rm**
+bisa remove sekalian dari docker container dengan docker rm
 
 <img src="img/image54.png"
 style="width:4.92708in;height:0.66667in" />
@@ -156,7 +151,7 @@ lihat hasil nya :
 <img src="img/image45.png"
 style="width:6.26772in;height:1.56944in" />
 
-**SHARING OUR APP**
+## SHARING OUR APP 
 
 create repository pada dokumentasi
 
@@ -191,7 +186,7 @@ style="width:6.26772in;height:1.88889in" />
 <img src="img/image59.png"
 style="width:6.26772in;height:0.63889in" />
 
-PERSISTING OUT DB
+## PERSISTING OUT DB
 
 <img src="img/image15.png"
 style="width:6.26772in;height:1.31944in" />
@@ -249,7 +244,7 @@ lalu cek volum
 <img src="img/image26.png"
 style="width:6.26772in;height:2.05556in" />
 
-USING BIND MOUNTH
+## USING BIND MOUNTH
 
 <img src="img/image51.png"
 style="width:6.26772in;height:1.79167in" />
@@ -296,7 +291,7 @@ style="width:6.26772in;height:1.44444in" />
 
 sesuai dengan yang saya edit
 
-MUTLI CONTAINER APPS
+## MUTLI CONTAINER APPS
 
 <img src="img/image55.png"
 style="width:6.26772in;height:0.54167in" />
@@ -362,12 +357,17 @@ data pun tampil :
 <img src="img/image49.png"
 style="width:6.26772in;height:1.48611in" />
 
+## USING DOCKER COMPOSE
+
+setup docker-compose.yml
 <img src="img/image43.png"
 style="width:6.26772in;height:2.97222in" />
 
+docker-compose up -d
 <img src="img/image12.png"
 style="width:6.26772in;height:1.33333in" />
 
+info cek docker logs
 <img src="img/image39.png"
 style="width:6.33184in;height:1.77754in" />
 
@@ -375,4 +375,9 @@ docker compose down
 
 <img src="img/image18.png"
 style="width:6.26772in;height:0.79167in" />
+
+
+# -- SELESAI --
+
+    
 
