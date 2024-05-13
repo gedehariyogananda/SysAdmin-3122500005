@@ -133,5 +133,34 @@ https://github.com/louislam/uptime-kuma
 </p>
 
 dan kuma berhasil tersintall :)
-  
 
+
+# Monitoring 
+
+Pergi ke `sudo nano /var/lib/bind/db.kelompok4.local` tambahkan setingan monitoring seperti pada dibawah berikut:
+
+<p align="center">
+    <img src="/img/monitoring1.png">
+</p>
+
+Lalu jalankan perintah `sudo a2enmod` dan Masukkan Package berikut:
+`proxy proxy_ajp proxy_http rewrite deflate headers proxy_balancer proxy_connect proxy_html`
+
+
+<p align="center">
+    <img src="/img/monitoring2.png">
+</p>
+
+Pergi ke `sudo nano /etc/apache2/sites-enabled/000-default.conf` lalu konfigurasi seperti dibawah berikut:
+
+
+<p align="center">
+    <img src="/img/monitoring3.png">
+</p>
+
+Maka hasilnya akan seperti ini:
+
+
+<p align="center">
+    <img src="/img/monitoring4.png">
+</p>
