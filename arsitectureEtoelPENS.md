@@ -112,7 +112,7 @@ eTOEFL adalah aplikasi berbasis mobile yang dikembangkan dengan Flutter dan memu
 ## Desain Sistem
 
 <div align="center">
-  <img src="./img/1.png" alt="" width="80%" />
+  <img src="./img/arsitectur.png" alt="" width="80%" />
 </div>
 
 1. **Storage Server** berjalan pada port 3000 yang bertanggung jawab untuk menyimpan dan mengambil data, khususnya file atau dokumen besar yang diperlukan oleh aplikasi.
