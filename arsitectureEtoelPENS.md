@@ -112,7 +112,7 @@ eTOEFL adalah aplikasi berbasis mobile yang dikembangkan dengan Flutter dan memu
 ## Desain Sistem
 
 <div align="center">
-  <img src="./img/arsitectur.png" alt="" width="80%" />
+  <img src="./img/1.png" alt="" width="80%" />
 </div>
 
 1. **Storage Server** berjalan pada port 3000 yang bertanggung jawab untuk menyimpan dan mengambil data, khususnya file atau dokumen besar yang diperlukan oleh aplikasi.
@@ -287,10 +287,523 @@ eTOEFL adalah aplikasi berbasis mobile yang dikembangkan dengan Flutter dan memu
 
 ## Sistem testing
 
-### Fungsional Testing API
+### Fungsional Testing 
+**1. API**
 ![image](https://github.com/gandirayu/Administrasi_Jaringan/assets/123063394/bd1b4ac9-deaf-4d75-83a4-65a3753d5ba9)
 
 link documentation API -> https://docs.google.com/spreadsheets/d/1-Jroqy-IDRazHRMXz3AzIXzvIScPwYVNrdnf1L9PnkQ/edit?usp=sharing
+
+**2. Docker**
+**Deskripsi Singkat**
+
+#### A. Dockerize Service
+
+1. Sebelumnya mari buat sebuah docker-compose.yml untuk service yang akan kita buat, pertama-tama definisikan kebutuhan dari setiap container terlebih dahulu
+
+a. Container Admin Panel 
+- Node Js untuk build frontend yang menggunakan vitejs
+- Nginx untuk running port dan listener php-fpm
+- Php-fpm sebagai daemon
+
+b. Container DB
+- Memerlukan Image MongoDB kasus disini kami gunakan MongoDB Community
+- Setting network dan expose keluar ( disini saya pisahkan dengan webserver )
+
+c. Container USER Service
+- Nginx sebagai http server
+- dan PHP-fpm sebagai daemon
+
+d. Container Game Service
+- Nginx sebagai http server
+- dan PHP-fpm sebagai daemon
+
+d. Container Simulation Service
+- Nginx sebagai http server
+- dan PHP-fpm sebagai daemon
+
+e. Container Untuk Storage Service
+- Minio S3 Image
+- Nginx untuk port reverse httpnya
+
+
+
+2. Setup docker-compose
+
+dikarenakan php-fpm menggunakan port 9000 dan storage minio menggunakan port 9000 juga, maka disini saya melakukan mapping port dari range port 1290-1294 yang akan diteruskan ke local ip dari nginx server itu
+
+Untuk mongodb saya pisahkan dan tidak menggunakan Nginx.
+Bentuk dari docker-compose.yml dan Dockerfile adalah sebagai berikut:
+
+
+```
+root@sandbox-reza:~# cat /var/www/toefl/docker-compose.yml
+version: '3.8'
+
+services:
+  web_service:
+    build:
+      context: ${PWD}/web_service
+      dockerfile: Dockerfile
+    container_name: web_service
+    working_dir: /var/www/html
+    ports:
+      - "1291:9000"
+    volumes:
+      - /var/www/toefl/web_service:/var/www/html
+      - /var/www/toefl/web_service/.env:/var/www/html/.env
+    networks:
+      - toefl_network
+    depends_on:
+      - node_web
+    command: >
+      bash -c "composer install --ignore-platform-reqs --no-interaction --no-scripts &&
+               php artisan key:generate &&
+               php artisan config:cache &&
+               php artisan config:clear &&
+               php-fpm"
+
+  user_service:
+    build:
+      context: ${PWD}/user_service
+      dockerfile: Dockerfile
+    container_name: user_service
+    working_dir: /var/www/html
+    ports:
+      - "1292:9000"
+    volumes:
+      - /var/www/toefl/user_service:/var/www/html
+      - /var/www/toefl/user_service/.env:/var/www/html/.env
+    networks:
+      - toefl_network
+    command: >
+      bash -c "composer install --ignore-platform-reqs --no-interaction --no-scripts &&
+               php artisan key:generate &&
+               php artisan config:cache &&
+               php artisan config:clear &&
+               php-fpm"
+
+  simulation_service:
+    build:
+      context: ./simulation_service
+      dockerfile: Dockerfile
+    container_name: simulation_service
+    working_dir: /var/www/html
+    ports:
+      - "1293:9000"
+    volumes:
+      - /var/www/toefl/simulation_service:/var/www/html
+      - /var/www/toefl/simulation_service/.env:/var/www/html/.env
+    networks:
+      - toefl_network
+    command: >
+      bash -c "composer install --ignore-platform-reqs --no-interaction --no-scripts &&
+               php artisan key:generate &&
+               php artisan config:cache &&
+               php artisan config:clear &&
+               php-fpm"
+
+  game_service:
+    build:
+      context: ./game_service
+      dockerfile: Dockerfile
+    container_name: game_service
+    working_dir: /var/www/html
+    ports:
+      - "1294:9000"
+    volumes:
+      - /var/www/toefl/game_service:/var/www/html
+      - /var/www/toefl/game_service/.env:/var/www/html/.env
+    networks:
+      - toefl_network
+    command: >
+      bash -c "composer install --ignore-platform-reqs --no-interaction --no-scripts &&
+               php artisan key:generate &&
+               php artisan config:cache &&
+               php artisan config:clear &&
+               php-fpm"
+
+  node_web:
+    image: node:20-slim
+    container_name: node_web
+    working_dir: /var/www/html
+    volumes:
+      - /var/www/toefl/web_service:/var/www/html
+    networks:
+      - toefl_network
+    command: >
+      sh -c "npm cache clean --force && npm install && npm run build"
+
+  nginx:
+    image: nginx:1.24
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - .:/var/www/html
+      - /var/www/toefl/nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - /var/www/toefl/nginx/ciptakode.crt:/etc/ssl/certs/ciptakode.crt
+      - /var/www/toefl/nginx/ciptakode.key:/etc/ssl/private/ciptakode.key
+    networks:
+      - toefl_network
+    depends_on:
+      - web_service
+      - user_service
+      - simulation_service
+      - game_service
+
+  storage:
+    image: docker.io/bitnami/minio:2022
+    container_name: storage
+    ports:
+      - '1290:9000'
+      - '9001:9001'
+    networks:
+      - toefl_network
+    volumes:
+      - 'toefl_storage:/data'
+    environment:
+      - MINIO_ROOT_USER=kamuiniapa
+      - MINIO_ROOT_PASSWORD=akumanusia
+      - MINIO_DEFAULT_BUCKETS=toefl
+
+networks:
+  toefl_network:
+    driver: bridge
+
+volumes:
+  toefl_storage:
+    driver: local
+    
+```
+Laravel
+
+```root@sandbox-reza:~# cat /var/www/toefl/Dockerfile
+# Use the official PHP image
+FROM php:8.2-fpm
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    git \
+    unzip \
+    nano \
+    libssl-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd \
+    && docker-php-ext-install pdo pdo_mysql \
+    && pecl install mongodb \
+    && docker-php-ext-enable mongodb
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy existing application directory contents
+COPY . .
+
+# Install Composer dependencies
+RUN composer install
+
+# Generate application key
+RUN php artisan key:generate
+
+# Cache configuration
+RUN php artisan config:cache
+RUN php artisan config:clear
+
+# Set permissions for storage directory
+RUN chown -R www-data:www-data storage bootstrap \
+    && chmod -R 775 storage bootstrap \
+    && find storage bootstrap -type d -exec chmod g+s {} +
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
+```
+
+MongoDB
+
+```docker run --name mongodb -p 27017:27017 -d mongodb/mongodb-community-server:latest
+```
+
+3. Supaya memudahkan development saya membuat beberapa subdomain dengan domain utama https://ciptakode.biz.id
+disini saya beri SSL dari cloudflare menggunakan origin server
+
+  <div align="center">
+    <img src="./img/imagenew.png" alt="" width="100%" />
+  </div>
+
+
+4. kemudian setting untuk nginxnya
+
+```
+root@sandbox-reza:~# cat /var/www/toefl/nginx/default.conf
+server {
+    listen 80;
+    server_name ciptakode.biz.id user.ciptakode.biz.id simulation.ciptakode.biz.id game.ciptakode.biz.id storage.ciptakode.biz.id;
+    return 301 https://$host$request_uri;
+}
+
+# General settings for ciptakode.biz.id
+server {
+    listen 443 ssl;
+    server_name ciptakode.biz.id;  # Replace with your domain name
+
+    ssl_certificate /etc/ssl/certs/ciptakode.crt;
+    ssl_certificate_key /etc/ssl/private/ciptakode.key;
+
+    root /var/www/html/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_intercept_errors on;
+        fastcgi_pass web_service:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fastcgi_param SCRIPT_FILENAME /usr/share/nginx/html$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+
+
+
+}
+
+# Settings for user.ciptakode.biz.id
+server {
+    listen 443 ssl;
+    server_name user.ciptakode.biz.id;
+
+    #ssl_certificate /etc/ssl/certs/ciptakode_user.crt;
+    #ssl_certificate_key /etc/ssl/private/ciptakode_user.key;
+    ssl_certificate /etc/ssl/certs/ciptakode.crt;
+    ssl_certificate_key /etc/ssl/private/ciptakode.key;
+
+    root /var/www/html/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    #location ~ ^/.well-known/ {
+   #     allow all;
+  #      default_type application/json;
+ #       try_files $uri $uri/ =404;
+#    }
+
+    location ~ \.php$ {
+#                fastcgi_split_path_info ^(.+\.php)(/.+)$;
+
+        include fastcgi_params;
+        fastcgi_intercept_errors on;
+        fastcgi_pass user_service:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        #fastcgi_param SCRIPT_FILENAME /usr/share/nginx/html$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+
+
+#location ~ \.json$ {
+    #    root /var/www/html/public;
+    #    add_header Content-Type application/json;
+    #}
+
+}
+
+# Settings for simulation.ciptakode.biz.id
+server {
+    listen 443 ssl;
+    server_name simulation.ciptakode.biz.id;
+
+    #ssl_certificate /etc/ssl/certs/ciptakode_simulation.crt;
+    #ssl_certificate_key /etc/ssl/private/ciptakode_simulation.key;
+    ssl_certificate /etc/ssl/certs/ciptakode.crt;
+    ssl_certificate_key /etc/ssl/private/ciptakode.key;
+
+    root /var/www/html/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_intercept_errors on;
+        fastcgi_pass simulation_service:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+# Settings for game.ciptakode.biz.id
+server {
+    listen 443 ssl;
+    server_name game.ciptakode.biz.id;
+
+    #ssl_certificate /etc/ssl/certs/ciptakode_game.crt;
+    #ssl_certificate_key /etc/ssl/private/ciptakode_game.key;
+    ssl_certificate /etc/ssl/certs/ciptakode.crt;
+    ssl_certificate_key /etc/ssl/private/ciptakode.key;
+
+    root /var/www/html/public;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_intercept_errors on;
+        fastcgi_pass game_service:9000;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+
+
+server {
+    listen 1290;
+    server_name storage.ciptakode.biz.id;
+    #        client_max_body_size 100M;
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name storage.ciptakode.biz.id;
+
+    #ssl_certificate /etc/ssl/certs/ciptakode_storage.crt;
+    #ssl_certificate_key /etc/ssl/private/ciptakode_storage.key;
+    ssl_certificate /etc/ssl/certs/ciptakode.crt;
+    ssl_certificate_key /etc/ssl/private/ciptakode.key;
+
+    # Allow special characters in headers
+    ignore_invalid_headers off;
+    # Allow any size file to be uploaded.
+    # Set to a value such as 1000m; to restrict file size to a specific value
+    client_max_body_size 10m;
+    # Disable buffering
+    proxy_buffering off;
+    proxy_request_buffering off;
+
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_connect_timeout 300;
+        # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        chunked_transfer_encoding off;
+
+        proxy_pass http://minio_s3; # This uses the upstream directive definition to load balance
+    }
+
+    location /minio/ui/ {
+        rewrite ^/minio/ui/(.*) /$1 break;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-NginX-Proxy true;
+
+        # This is necessary to pass the correct IP to be hashed
+        real_ip_header X-Real-IP;
+
+        proxy_connect_timeout 300;
+
+        # To support websockets in MinIO versions released after January 2023
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        # Some environments may encounter CORS errors (Kubernetes + Nginx Ingress)
+        # Uncomment the following line to set the Origin request to an empty string
+        # proxy_set_header Origin '';
+
+        chunked_transfer_encoding off;
+
+        proxy_pass http://minio_console; # This uses the upstream directive definition to load balance
+    }
+}
+
+```
+
+1. **storage**
+   - URL: [https://storage.ciptakode.biz.id/](https://storage.ciptakode.biz.id/)
+   - Fungsi: Menyediakan layanan penyimpanan file, termasuk materi TOEFL.
+
+2. **user_service**
+   - URL: [https://user.ciptakode.biz.id](https://user.ciptakode.biz.id)
+   - Fungsi: Menangani autentikasi, OTP, dan profil pengguna.
+
+3. **simulation_service**
+   - URL: [https://simulation.ciptakode.biz.id](https://simulation.ciptakode.biz.id)
+   - Fungsi: Mengelola target dan simulasi.
+
+4. **game_service**
+   - URL: [https://game.ciptakode.biz.id](https://game.ciptakode.biz.id)
+   - Fungsi: Menyediakan homepage untuk game, permainan, dan kuis.
+
+5. **web_service**
+   - URL: [https://ciptakode.biz.id](https://ciptakode.biz.id)
+   - Fungsi: Menyediakan panel admin.
+
+6. **database_service**
+   - Teknologi: MongoDB private
+   - Fungsi: Menyimpan data secara terpusat menggunakan database MongoDB.
+
+- Up testing
+  <div align="center">
+    <img src="./img/5.png" alt="" width="100%" />
+  </div>
+- Run Testing
+  <div align="center">
+    <img src="./img/3.png" alt="" width="100%" />
+  </div>
+- Restart Test
+  <div align="center">
+    <img src="./img/2.jpg" alt="" width="100%" />
+  </div>
+- Down Testing
+  <div align="center">
+    <img src="./img/4.png" alt="" width="100%" />
+  </div>
 
 ## Kesimpulan
 
